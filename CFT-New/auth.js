@@ -40,7 +40,7 @@ signInBtn.addEventListener("click", async (e) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         alert("Login Successful! ✅");
-        window.location.href = "HOME.html"; // Redirect to Dashboard
+        window.location.href = "Total.html"; // Redirect to Dashboard
     } catch (error) {
         alert(error.message);
     }
@@ -67,7 +67,7 @@ googleBtn.addEventListener("click", async (e) => {
     try {
         const result = await signInWithPopup(auth, provider);
         alert("Google Sign-In Successful! ✅");
-        window.location.href = "dashboard.html";
+        window.location.href = "Total.html";
     } catch (error) {
         alert(error.message);
     }

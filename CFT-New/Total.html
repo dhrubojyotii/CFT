@@ -278,7 +278,7 @@
                 </div>
             </div>
             <div class="total-emissions">
-                <h3>Total Emissions</h3>
+                <h3>Current CO2 Emissions</h3>
                 <h2 class="co2-emission"></h2>
                 <p>CO₂ equivalent</p>
             </div>
@@ -310,28 +310,28 @@
                         <div class="emission-icon">𖣘</div>
                         <div class="emission-details">
                             <div class="emission-category">Fans</div>
-                            <div class="emission-value">3.654 ton</div>
+                            <div class="emission-value">-</div>
                         </div>
                     </div>
                     <div class="emission-item">
                         <div class="emission-icon">💡</div>
                         <div class="emission-details">
                             <div class="emission-category">Light</div>
-                            <div class="emission-value">7.83 ton</div>
+                            <div class="emission-value">-</div>
                         </div>
                     </div>
                     <div class="emission-item">
                         <div class="emission-icon">🗄️</div>
                         <div class="emission-details">
                             <div class="emission-category">Fridge</div>
-                            <div class="emission-value">2.09 ton</div>
+                            <div class="emission-value">-</div>
                         </div>
                     </div>
                     <div class="emission-item">
                         <div class="emission-icon">❄️</div>
                         <div class="emission-details">
                             <div class="emission-category">A.C</div>
-                            <div class="emission-value">1.566 ton</div>
+                            <div class="emission-value">-</div>
                         </div>
                     </div>
                 </div>
@@ -341,11 +341,11 @@
 
     <div class="nav-container">
         <nav class="navigation">
-           <a href="HOME.html"> <button class="nav-button active">🏠</button></a>
+           <!-- <a href="HOME.html"> <button class="nav-button active">🏠</button></a> -->
             <a href="Total.html"><button class="nav-button">📈</button></a>
             <a href="GOAL.html"><button class="nav-button">🎯</button></a>
             <a href="Calculation.html"><button class="nav-button">💻</button></a>
-            <a href="user.html"> <button class="nav-button">👤</button></a>
+            <a href="user.html"> <button class="nav-button">🙎🏻</button></a>
         </nav>
     </div>
 
@@ -463,7 +463,7 @@
                     console.log("CO2 Emissions:", totalEmissions);
 
                     // Update the co2-emission class dynamically
-                    document.querySelector('.co2-emission').textContent = `${totalEmissions} Kgs`;
+                    document.querySelector('.co2-emission').textContent = `${totalEmissions} kgs`;
                 } else {
                     console.log("No data available for co2Emission.");
                 }

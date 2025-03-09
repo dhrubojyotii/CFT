@@ -290,7 +290,7 @@
 
         <div class="glass-card">
             <div class="footprint-display">
-                <div class="number" id="co2Emission"></div>
+                <div class="number" id="co2-emission"></div>
                 <div class="unit">Kgs CO2/year</div>
                 <div class="trend">
                     <span class="trend-icon">↗</span>
@@ -325,22 +325,22 @@
             <a href="Total.html"><button class="nav-button">📈</button></a>
             <a href="GOAL.html"><button class="nav-button">🎯</button></a>
             <a href="Calculation.html"><button class="nav-button">💻</button></a>
-            <a href="user.html"> <button class="nav-button">👤</button></a>
+            <a href="user.html"> <button class="nav-button">🙎🏻</button></a>
         </nav>
     </div>
 
     <script>
 
-const firebaseConfig = {
-        apiKey: "AIzaSyBQfXDpVpKRWUr6RTelKxcMeOFjSS6urw4",
-        authDomain: "cft-v2.firebaseapp.com",
-        databaseURL: "https://cft-v2-default-rtdb.firebaseio.com",
-        projectId: "cft-v2",
-        storageBucket: "cft-v2.firebasestorage.app",
-        messagingSenderId: "547160025326",
-        appId: "1:547160025326:web:d53a6a37a2e8a62226abff",
-        measurementId: "G-P399KTPNP2"
-    };
+// const firebaseConfig = {
+//         apiKey: "AIzaSyBQfXDpVpKRWUr6RTelKxcMeOFjSS6urw4",
+//         authDomain: "cft-v2.firebaseapp.com",
+//         databaseURL: "https://cft-v2-default-rtdb.firebaseio.com",
+//         projectId: "cft-v2",
+//         storageBucket: "cft-v2.firebasestorage.app",
+//         messagingSenderId: "547160025326",
+//         appId: "1:547160025326:web:d53a6a37a2e8a62226abff",
+//         measurementId: "G-P399KTPNP2"
+//     };
 
 
         // Initialize Firebase
@@ -348,28 +348,35 @@ const firebaseConfig = {
         const auth = firebase.auth();
         const database = firebase.database();
 
-        // Function to fetch and update carbon emission data
-        function updateCarbonEmission() {
-            const totalEmissionElement = document.getElementById('co2Emission');
-            const ctx = document.getElementById('footprintChart').getContext('2d');
-            
-            database.ref('/sensor/co2Emission').on('value', snapshot => {
-                if (snapshot.exists()) {
-                    const emissionData = snapshot.val();
-                    totalEmissionElement.textContent = emissionData.toFixed(4) + ' kg';
-                } else{
-                    totalEmissionElement.textContent = 'No data available';
-                }
-        });
+         // Import Firebase modules (correct for v9+)
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-        // Fetching the co2emission data from local storage
-        const co2Emission = localStorage.getItem('co2Emission');
-        if (co2Emission) {
-            totalEmissionElement.textContent = co2Emission + ' kg';
-        } else {
-            totalEmissionElement.textContent = 'No data available';
+        // Firebase Configuration
+        const firebaseConfig = {
+            databaseURL: "https://cft-v2-default-rtdb.firebaseio.com/"
+        };
+
+        // Function to Fetch CO2 Emission from Firebase
+        function fetchCO2Emissions() {
+            const co2Ref = ref(database, 'sensor/co2Emission');
+            onValue(co2Ref, (snapshot) => {
+                if (snapshot.exists()) {
+                    const totalEmissions = snapshot.val();
+                    console.log("CO2 Emissions:", totalEmissions);
+
+                    // Update the co2-emission class dynamically
+                    document.querySelector('.co2-emission').textContent = `${totalEmissions} Kgs`;
+                } else {
+                    console.log("No data available for co2Emission.");
+                }
+            }, (error) => {
+                console.error("Error fetching data:", error);
+            });
         }
-    }
+
+        // Call the function on page load
+        fetchCO2Emissions();
 
         // Fetch historical data for the line chart
         database.ref('/sensor/history/co2Emission').on('value', snapshot => {

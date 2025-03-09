@@ -592,7 +592,7 @@
 
     <div class="nav-container">
       <nav class="navigation">
-         <a href="HOME.html"> <button class="nav-button active">🏠</button></a>
+         <!-- <a href="HOME.html"> <button class="nav-button active">🏠</button></a> -->
           <a href="Total.html"><button class="nav-button">📈</button></a>
           <a href="GOAL.html"><button class="nav-button">🎯</button></a>
           <a href="Calculation.html"><button class="nav-button">💻</button></a>
@@ -751,7 +751,7 @@
     const EMISSIONS = {
       bus: 0.105,  // kg CO2 per km (average bus)
       car: 0.192,  // kg CO2 per km (average car)
-      bike: 0,     // No direct emissions
+      bike: 0.103,     // kg CO2 per km (average bike)
       cycle: 0,    // No direct emissions
       walk: 0      // No direct emissions
     };
@@ -759,7 +759,7 @@
     // Constants for CO2 saved compared to car travel
     const SAVINGS = {
       bus: 0.087,  // kg CO2 saved per km compared to car
-      bike: 0.192, // Full savings (compared to car)
+      bike: 0.080, // Full savings (compared to car)
       cycle: 0.192,// Full savings (compared to car)
       walk: 0.192  // Full savings (compared to car)
     };
@@ -839,7 +839,10 @@
       // Calculate total emissions
       const busEmission = parseFloat(busSlider.value) * EMISSIONS.bus;
       const carEmission = parseFloat(carSlider.value) * EMISSIONS.car;
-      const total = busEmission + carEmission;
+      const bikeEmission = parseFloat(bikeSlider.value) * EMISSIONS.bike;
+      const cycleEmission = parseFloat(cycleSlider.value) * EMISSIONS.cycle;
+      const walkEmission = parseFloat(walkSlider.value) * EMISSIONS.walk;
+      const total = busEmission + carEmission + bikeEmission + cycleEmission + walkEmission;
       
       // Calculate CO2 saved by green transportation
       const busSaved = parseFloat(busSlider.value) * SAVINGS.bus;
@@ -863,9 +866,9 @@
       // Update bar value displays
       barValueBus.textContent = `${busEmission.toFixed(1)} kg`;
       barValueCar.textContent = `${carEmission.toFixed(1)} kg`;
-      barValueBike.textContent = `0 kg`;
-      barValueCycle.textContent = `0 kg`;
-      barValueWalk.textContent = `0 kg`;
+      barValueBike.textContent = `${bikeEmission.toFixed(1)} kg`;
+      barValueCycle.textContent = `${cycleEmission.toFixed(1)} kg`;
+      barValueWalk.textContent = `${walkEmission.toFixed(1)} kg`;
       
       // Update carbon score message and style
       updateCarbonScore(total, saved, totalKm);
@@ -922,12 +925,12 @@
       // Get values
       const busValue = parseFloat(busSlider.value) * EMISSIONS.bus;
       const carValue = parseFloat(carSlider.value) * EMISSIONS.car;
-      const bikeValue = 0;
-      const cycleValue = 0;
-      const walkValue = 0;
+      const bikeValue = parseFloat(bikeSlider.value) * EMISSIONS.bike;
+      const cycleValue = parseFloat(cycleSlider.value) * EMISSIONS.cycle;
+      const walkValue = parseFloat(walkSlider.value) * EMISSIONS.walk;
       
       // Calculate total emissions
-      const totalEmission = busValue + carValue;
+      const totalEmission = busValue + carValue + bikeValue + cycleValue + walkValue;
       
       // Calculate heights for bars (relative to the highest value)
       const maxEmission = Math.max(busValue, carValue, bikeValue, cycleValue, walkValue);
